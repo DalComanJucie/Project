@@ -1,0 +1,6 @@
+
+dependencies {
+    implementation(project(":web-files"))
+}
+
+//그래서 누가 의존하는 거지?

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sp.unitt.files.domain.루트디텍토리_설정" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-02-02T10:34:11" hostname="Programmerui-MacBookPro.local" time="0.002">
+  <properties/>
+  <testcase name="1. 루트디렉토리를 설정한다." classname="com.sp.unitt.files.domain.루트디텍토리_설정" time="0.001"/>
+  <testcase name="2.루트 디렉토리 밑의 상대경롤로 파일을 접근한다." classname="com.sp.unitt.files.domain.루트디텍토리_설정" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

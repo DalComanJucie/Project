@@ -1,0 +1,5 @@
+println project.name
+println "${project.parent.name} / ${project.name}"
+
+//이렇게 깊이 프로젝트를 구성하면 나중에 프로젝트 레퍼런스 할 경우 많이 복잡해 진다.
+

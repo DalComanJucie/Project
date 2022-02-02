@@ -1,0 +1,77 @@
+
+
+//plugins {
+//    id 'java'
+//}
+//
+//group 'org.project'
+//version '1.0-SNAPSHOT'
+//
+//repositories {
+//    mavenCentral()
+//}
+//
+//dependencies {
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+//}
+//
+//test {
+//    useJUnitPlatform()
+//}
+
+buildscript {
+    ext {   // extra 변수 설정
+        spring = "org.springframework"
+        boot = "${spring}.boot"
+        bootVersion = "2.5.4"
+        lombok = "org.projectlombok:lombok"
+    }
+    //컨벤셔널하게 ? 뭔뜻.
+    repositories {
+        mavenCentral() //그래들 플러그인을 써야함
+    }
+
+    dependencies {
+        classpath "$boot:spring-boot-gradle-plugin:$bootVersion"
+    }
+}
+
+//이프로젝트 포함 하위 프로젝트에 적용할것들
+allprojects {
+    group("com.sp.unitt")
+    version("1.0.0")
+}
+
+
+subprojects {
+    apply plugin: "java-library"
+    apply plugin: boot
+    apply plugin: "io.spring.dependency-management"
+
+    repositories {
+        mavenCentral()
+    }
+
+    configurations {
+        compileOnly
+    }
+
+    dependencies {
+        compileOnly lombok   //컴파일 타이밍에 롬복 씀
+        annotationProcessor lombok
+
+        testImplementation "$boot:spring-boot-starter-test" //테스트의 디펜던시는 아낌없이 줘도 된다. //여기까지가 최소한의 구성이다.
+    }
+
+    test{
+        useJUnitPlatform()
+    }
+}
+
+//boot 자료는 main 없으면 구성 안된다.
+rootProject.subprojects {subproject ->
+    if(!subproject.name.statsWith("server-")){ //서브프로젝트이 이름이 server로 시작 안한다면 bootjar를 꺼줘라
+        subproject.tasks["bootJar"].enabled =false
+    }
+}

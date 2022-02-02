@@ -1,0 +1,67 @@
+rootProject.name = 'Project'
+
+//여기가 gradle 의 최상위ㅏ 객체입니다.
+//그레들이 어떤 프로젝트로 구성되오있는지 세팅하는 파일이다.
+
+//include를 해줘야한다.,
+include "comp"
+
+//아래와 방법으론 추가가안된다. 빌드 에러남 directory 아래 directory 는 포함 안됨. directory는 : 으로 추가한다.
+//comp의 Parent Project 는 Project이고 comp/tests의 parents는 comp이다.
+//include "comp/tests"
+include "comp:tests"
+
+//비지니스 로직은 sp
+//테스트 모듈은 test에
+//웹 모듈은 web에
+//서버 모듈은 server에 만든다.
+
+def file(dir, name){
+    return file("${dir.absolutePath}/${name}") //디렉토리의 패스 밑으로 파일을 만든다.
+}
+
+//디펜던시 껍데기
+def GRADLE_TEXT = """
+dependencies {
+}
+
+"""
+
+//모듈 include
+
+["sp", "test", "web", "server"].forEach(moduleName-> {
+    def moduleDir = file(rootDir, moduleName);
+    if(!moduleDir.exists()) {
+        moduleDir.mkdir()
+    }
+
+    moduleDir.eachFile { subProjectDir ->
+        def buildFile = file(subProjectDir, "build.gradle");
+        if (!buildFile.exists()) {
+            buildFile.text = GRADLE_TEXT
+        }
+
+        def projectName = ":${moduleName}-${subProjectDir.name}"
+        include projectName
+        project(projectName).projectDir = subProjectDir
+
+        //해당 파일들을 보장해 준다. 해당 파일들 자동 생성 //subModule의 Main test Module 생성하기.
+        [
+                "src/main/java/com/sp/unitt",
+                "src/main/resources",
+                "src/test/java/com/sp/unitt",
+                "src/test/resources"
+        ].forEach(src-> {
+            def srcDir = file(subProjectDir, src);
+            if(!srcDir.exists()){
+                srcDir.mkdirs();
+            }
+        })
+    }
+})
+
+include "comp"
+include "comp:tests"
+
+//그럼 만들어진 파일들의 src / resource directory 는 어떻게 인식 시켜 줄거냐 ?
+//그건 settings에서ㅏ 하는게 아니라 buildgradle에서 한다.
