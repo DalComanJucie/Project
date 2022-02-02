@@ -70,8 +70,8 @@ subprojects {
 }
 
 //boot 자료는 main 없으면 구성 안된다.
-rootProject.subprojects {subproject ->
-    if(!subproject.name.statsWith("server-")){ //서브프로젝트이 이름이 server로 시작 안한다면 bootjar를 꺼줘라
-        subproject.tasks["bootJar"].enabled =false
-    }
-}
+//rootProject.subprojects {subproject ->
+//    if(!subproject.name.statsWith("server-")){ //서브프로젝트이 이름이 server로 시작 안한다면 bootjar를 꺼줘라
+//        subproject.tasks["bootJar"].enabled =false
+//    }
+//}
