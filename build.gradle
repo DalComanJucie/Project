@@ -45,9 +45,11 @@ allprojects {
 
 
 subprojects {
+    apply plugin: 'java'
     apply plugin: "java-library"
     apply plugin: boot
     apply plugin: "io.spring.dependency-management"
+    apply plugin: 'org.springframework.boot'
 
     repositories {
         mavenCentral()
@@ -58,15 +60,26 @@ subprojects {
     }
 
     dependencies {
+
+        runtimeOnly 'mysql:mysql-connector-java'
         compileOnly lombok   //컴파일 타이밍에 롬복 씀
         annotationProcessor lombok
 
+        implementation 'org.springframework.boot:spring-boot-starter-web'
         testImplementation "$boot:spring-boot-starter-test" //테스트의 디펜던시는 아낌없이 줘도 된다. //여기까지가 최소한의 구성이다.
     }
 
     test{
         useJUnitPlatform()
     }
+}
+
+rootProject.subprojects {subproject ->
+    if(!subproject.name.startsWith("server-"))
+    {
+        subproject.tasks["bootJar"].enabled =false
+    }
+
 }
 
 //boot 자료는 main 없으면 구성 안된다.

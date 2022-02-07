@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.sp.unitt.files.domain.PersonTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-02-02T10:57:56" hostname="Programmerui-MacBookPro.local" time="0.015">
+<testsuite name="com.sp.unitt.files.domain.PersonTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-02-02T12:28:44" hostname="DESKTOP-MGMFMVG" time="0.012">
   <properties/>
-  <testcase name="GetName()" classname="com.sp.unitt.files.domain.PersonTest" time="0.015"/>
+  <testcase name="GetName()" classname="com.sp.unitt.files.domain.PersonTest" time="0.012"/>
   <system-out><![CDATA[Test중입니다
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
